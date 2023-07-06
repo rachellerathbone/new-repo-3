@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+
+name: My Deployment flow
+
+# Controls when the action will run.
+on: [push]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy-to-staging:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+        name: Create staging deployment
+        id: deploy-to-staging
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          environment: Staging
+
+  deploy-to-random-env:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+        name: Create staging deployment
+        id: deploy-to-random-env
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          environment: any
