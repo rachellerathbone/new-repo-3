@@ -46,3 +46,7 @@ pipeline {
          }
     }
 }
+curl --request POST \
+  --url 'https://api.github.com/repos/rachellerathbone/new-repo-new-change/dispatches' \
+  --header 'authorization: Bearer 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' \
+  --data '{"event_type": "hello"}'
