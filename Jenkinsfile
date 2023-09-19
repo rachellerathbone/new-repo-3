@@ -13,6 +13,12 @@ pipeline {
                         echo 'prod deployment done'
                     }
                 }
+                stage('GitHub Jenkins Ant Docker Build') {
+                  steps {
+                    git 'https://github.com/rachellerathbone/new-repo-new-change.git'
+                    sh 'testing jenkins with actions'
+                  }
+                }
             }
            post {
                  always {
