@@ -41,6 +41,8 @@ commands:
                     }' | curl -X POST -H "Content-Type:application/json" -H "Accept:application/vnd.github.v3+json" -H "Authorization: token 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" -d @- "https://api.github.com/repos/new-repo-new-change/dispatches"
                 name: Bundle build info into webhook payload
                 when: always
+orbs:
+  github-actions: movermeyer/github-actions@0.0.5
 
 # Define the jobs we want to run for this project
 jobs:
@@ -50,6 +52,10 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the build job"
+      - github-actions/repository_dispatch:
+          repo_name: "rachellerathbone/new-repo-new-change" # Your GitHub organization name + repo name
+          event_type: "do-something" # Arbitrary string that your GitHub Actions will filter on
+          github_personal_access_token: env.GITHUB_PERSONAL_ACCESS_TOKEN
   test:
     docker:
       - image: cimg/base:2023.03
