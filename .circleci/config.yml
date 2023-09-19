@@ -56,6 +56,7 @@ jobs:
           repo_name: "rachellerathbone/new-repo-new-change" # Your GitHub organization name + repo name
           event_type: "do-something" # Arbitrary string that your GitHub Actions will filter on
           github_personal_access_token: GITHUB_PERSONAL_ACCESS_TOKEN
+          - run: echo GITHUB_PERSONAL_ACCESS_TOKEN
   test:
     docker:
       - image: cimg/base:2023.03
