@@ -39,9 +39,9 @@ jobs:
       - name: Trigger jenkins job
         uses: jabbukka/jenkins-trigger@main
         with:
-          url: http://10.237.10.102
+          url: "http://10.237.10.102"
           job_name: "build_web_application"
-          user_name: fusionjenkinsadmin
-          api_token: 1165d18e52291dd6deafa3c37245847dbc
+          user_name: "fusionjenkinsadmin"
+          api_token: "1165d18e52291dd6deafa3c37245847dbc"
           wait: "true"
           timeout: "1000"
