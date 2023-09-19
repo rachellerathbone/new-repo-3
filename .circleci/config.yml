@@ -1,22 +1,43 @@
+# This code is licensed from CircleCI to the user under the MIT license.
+# See here for details: https://circleci.com/developer/orbs/licensing
 version: 2.1
+description: |
+    Interact with GitHub Actions from CircleCI
+display:
+    home_url: https://github.com/rachellerathbone/new-repo-new-change
+    source_url: https://github.com/rachellerathbone/new-repo-new-change
+commands:
+    repository_dispatch:
+        description: |
+            Triggers a repository_dispatch event within GitHub Actions for the repo
+        parameters:
+            event_type:
+                description: The ['event_type'](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#create-a-repository-dispatch-event) parameter to send
+                type: string
+            github_personal_access_token:
+                default: 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
+                description: The environment variable name containing a GitHub 'Personal Access Token' (PAT) with the `repo` scope
+                type: env_var_name
+            repo_name:
+                description: The organization and repo name to trigger the event for (ex. `octocat/hello-world`)
+                type: string
+        steps:
+            - run:
+                command: |
+                    echo '{}' | jq '{
+                      "event_type":"do-something",
+                      "client_payload": {
+                        "build_num": env.CIRCLE_BUILD_NUM,
+                        "branch": env.CIRCLE_BRANCH,
+                        "username": env.CIRCLE_USERNAME,
+                        "job": env.CIRCLE_JOB,
+                        "build_url": env.CIRCLE_BUILD_URL,
+                        "vcs_revision": env.CIRCLE_SHA1,
+                        "reponame": env.CIRCLE_PROJECT_REPONAME,
+                        "workflow_id": env.CIRCLE_WORKFLOW_ID,
+                        "pull_request": env.CI_PULL_REQUEST,
+                      }
+                    }' | curl -X POST -H "Content-Type:application/json" -H "Accept:application/vnd.github.v3+json" -H "Authorization: token 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" -d @- "https://api.github.com/repos/new-repo-new-change/dispatches"
+                name: Bundle build info into webhook payload
+                when: always
 
-# Define the jobs we want to run for this project
-jobs:
-  build:
-    docker:
-      - image: cimg/base:2023.03
-    steps:
-      - checkout
-      - run: echo "this is the build job"
-  test:
-    docker:
-      - image: cimg/base:2023.03
-    steps:
-      - checkout
-      - run: echo "this is the test job"
-
-# Orchestrate our job run sequence
-workflows:
-  build_and_test:
-    jobs:
-      - build
