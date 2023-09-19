@@ -38,7 +38,7 @@ commands:
                         "workflow_id": env.CIRCLE_WORKFLOW_ID,
                         "pull_request": env.CI_PULL_REQUEST,
                       }
-                    }' | curl -X POST -H "Content-Type:application/json" -H "Accept:application/vnd.github.v3+json" -H "Authorization: token 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" -d @- "https://api.github.com/repos/new-repo-new-change/dispatches"
+                    }' | curl -X POST -H "Content-Type:application/json" -H "Accept:application/vnd.github.v3+json" -H "Authorization: Bearer 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" -d @- "https://api.github.com/repos/new-repo-new-change/dispatches"
                 name: Bundle build info into webhook payload
                 when: always
 orbs:
@@ -56,7 +56,6 @@ jobs:
           repo_name: "rachellerathbone/new-repo-new-change" # Your GitHub organization name + repo name
           event_type: "do-something" # Arbitrary string that your GitHub Actions will filter on
           github_personal_access_token: GITHUB_PERSONAL_ACCESS_TOKEN
-      - run: echo ${GITHUB_PERSONAL_ACCESS_TOKEN}
   test:
     docker:
       - image: cimg/base:2023.03
