@@ -28,15 +28,7 @@ commands:
                     echo '{}' | jq '{
                       "event_type":"do-something",
                       "client_payload": {
-                        "build_num": env.CIRCLE_BUILD_NUM,
-                        "branch": env.CIRCLE_BRANCH,
-                        "username": env.CIRCLE_USERNAME,
-                        "job": env.CIRCLE_JOB,
-                        "build_url": env.CIRCLE_BUILD_URL,
-                        "vcs_revision": env.CIRCLE_SHA1,
-                        "reponame": env.CIRCLE_PROJECT_REPONAME,
-                        "workflow_id": env.CIRCLE_WORKFLOW_ID,
-                        "pull_request": env.CI_PULL_REQUEST,
+                        "build_num": 1234
                       }
                     }' | curl -X POST -H "Content-Type:application/json" -H "Accept:application/vnd.github.v3+json" -H "Authorization: Bearer github_pat_11AI3PFIA0twbqy577Ce1b_TmdWROAW7Ue6jFRdisCNWHXbQnOf0kyRQo51yhdH2skMTCKGGVLPpPzGgE" -d @- "https://api.github.com/repos/new-repo-new-change/dispatches"
                 name: Bundle build info into webhook payload
