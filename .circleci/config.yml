@@ -16,9 +16,9 @@ commands:
                 description: The ['event_type'](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#create-a-repository-dispatch-event) parameter to send
                 type: string
             github_personal_access_token:
-                default: GITHUB_PERSONAL_ACCESS_TOKEN
+                default: github_pat_11AI3PFIA0twbqy577Ce1b_TmdWROAW7Ue6jFRdisCNWHXbQnOf0kyRQo51yhdH2skMTCKGGVLPpPzGgE
                 description: The environment variable name containing a GitHub 'Personal Access Token' (PAT) with the `repo` scope
-                type: GITHUB_PERSONAL_ACCESS_TOKEN
+                type: env_var_name
             repo_name:
                 description: The organization and repo name to trigger the event for (ex. `octocat/hello-world`)
                 type: string
@@ -38,7 +38,7 @@ commands:
                         "workflow_id": env.CIRCLE_WORKFLOW_ID,
                         "pull_request": env.CI_PULL_REQUEST,
                       }
-                    }' | curl -X POST -H "Content-Type:application/json" -H "Accept:application/vnd.github.v3+json" -H "Authorization: Bearer GITHUB_PERSONAL_ACCESS_TOKEN" -d @- "https://api.github.com/repos/new-repo-new-change/dispatches"
+                    }' | curl -X POST -H "Content-Type:application/json" -H "Accept:application/vnd.github.v3+json" -H "Authorization: Bearer github_pat_11AI3PFIA0twbqy577Ce1b_TmdWROAW7Ue6jFRdisCNWHXbQnOf0kyRQo51yhdH2skMTCKGGVLPpPzGgE" -d @- "https://api.github.com/repos/new-repo-new-change/dispatches"
                 name: Bundle build info into webhook payload
                 when: always
 orbs:
